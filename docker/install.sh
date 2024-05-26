@@ -27,9 +27,11 @@ apt-get update -qq && export DEBIAN_FRONTEND=noninteractive && \
         build-essential ccache git python3 python3-pip xorriso qemu-system-x86 qemu-system-arm
 
 echo "Installing packages from pip"
+pip3 install cmake
 pip3 install meson
 pip3 install ninja
 pip3 install gcovr
+pip3 install config-pkg
 pip3 install xbstrap
 
 echo "Installing Taskfile"

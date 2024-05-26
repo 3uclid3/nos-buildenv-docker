@@ -2,11 +2,10 @@ FROM ubuntu:jammy
 
 ARG LLVM_VERSION=18
 
-# copy scripts
-COPY . /
+COPY install.sh /
 
-# run installation script
-RUN ./install.sh --llvm $LLVM_VERSION
+RUN chmod +x /install.sh && \
+    /install.sh --llvm $LLVM_VERSION && \
+    rm /install.sh
 
-# set entrypoint bootstrap scripts
-ENTRYPOINT ./bootstrap.sh --llvm $LLVM_VERSION
+CMD ["bash"]

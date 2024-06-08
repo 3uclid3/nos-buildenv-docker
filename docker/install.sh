@@ -24,7 +24,7 @@ fi
 echo "Installing packages from standard repositories"
 apt-get update -qq && export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y --no-install-recommends software-properties-common apt-utils wget curl file gpg \
-        build-essential ccache git python3 python3-pip xorriso qemu-system-x86 qemu-system-arm
+        build-essential ccache git python3 python3-pip xorriso qemu-system-x86 qemu-system-arm gcc-13 g++-13 gcc-14 g++-14
 
 echo "Installing packages from pip"
 pip3 install cmake

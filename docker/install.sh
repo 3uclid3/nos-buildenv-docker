@@ -33,6 +33,7 @@ pipx install ninja
 pipx install gcovr
 pipx install config-pkg
 pipx install xbstrap
+pipx ensurepath
 
 echo "Installing Taskfile"
 sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin

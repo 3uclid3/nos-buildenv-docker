@@ -2,7 +2,7 @@
 
 SHORT=l:g:
 LONG=llvm:,gcc:
-OPTS=$(getopt -o $SHORT: --long $LONG: -- "$@")
+OPTS=$(getopt -o $SHORT --long $LONG -- "$@")
 
 eval set -- "$OPTS"
 

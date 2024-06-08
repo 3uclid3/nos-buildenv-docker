@@ -10,6 +10,9 @@
       push:
         branches:
           - 'main'
+      schedule:
+        # At 03:00 on Sunday to update the image
+        - cron: '0 3 * * 0'
     
     jobs:
       package-docker:

@@ -1,23 +1,30 @@
 #!/bin/bash
 
-SHORT=l
-LONG=llvm
+SHORT=l:g:
+LONG=llvm:,gcc:
 OPTS=$(getopt -o $SHORT: --long $LONG: -- "$@")
 
 eval set -- "$OPTS"
 
 LLVM=
+GCC=
 
 while true; do
   case "$1" in
     -l | --llvm ) LLVM="$2"; shift 2 ;;
+    -g | --gcc ) GCC="$2"; shift 2 ;;
     -- ) shift; break ;;
     * ) break ;;
   esac
 done
 
 if [ -z "$LLVM" ]; then
-  echo "-l | --llvm is undefined"
+  echo "-l | --llvm version is undefined"
+  exit 1
+fi
+
+if [ -z "$GCC" ]; then
+  echo "-g | --gcc version is undefined"
   exit 1
 fi
 
@@ -30,7 +37,7 @@ apt-get update -qq && export DEBIAN_FRONTEND=noninteractive && \
         git \
         python3 python3-pip \
         xorriso \
-        gcc-14 g++-14 \
+        gcc-"$GCC" g++-"$GCC" \
         qemu-system-x86 qemu-system-arm
 
 echo "Installing packages from pip"

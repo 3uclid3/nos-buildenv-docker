@@ -4,7 +4,7 @@
     env:
       DOCKERHUB_REPOSITORY: 3uclid3/nos-buildenv
       LLVM_VERSION: 18
-      GCC_VERSION: 14
+      GCC_VERSION: 13
     
     on:
       push:
@@ -34,7 +34,7 @@
             with:
               context: "{{defaultContext}}:docker"
               load: true
-              build-args: "llvm=${{env.LLVM_VERSION}}, gcc=${{env.GCC_VERSION}}"
+              build-args: "LLVM_VERSION=${{env.LLVM_VERSION}}, GCC_VERSION=${{env.GCC_VERSION}}"
               tags: "${{ env.DOCKERHUB_REPOSITORY }}:test"
               
           - name: Test Image
@@ -46,5 +46,5 @@
             with:
               context: "{{defaultContext}}:docker"
               push: true
-              tags: "${{ env.DOCKERHUB_REPOSITORY }}:latest, ${{ env.DOCKERHUB_REPOSITORY }}:llvm-${{env.LLVM_VERSION}}, ${{ env.DOCKERHUB_REPOSITORY }}:gcc-${{env.GCC_VERSION}}, ${{ env.DOCKERHUB_REPOSITORY }}:llvm-${{env.LLVM_VERSION}}-gcc-${{env.GCC_VERSION}}"
+              tags: "${{ env.DOCKERHUB_REPOSITORY }}:latest, ${{ env.DOCKERHUB_REPOSITORY }}:llvm-${{env.LLVM_VERSION}}, ${{ env.DOCKERHUB_REPOSITORY }}:gcc-${{env.GCC_VERSION}}, ${{ env.DOCKERHUB_REPOSITORY }}:l-${{env.LLVM_VERSION}}-c-${{env.GCC_VERSION}}"
               labels: "nos.buildenv.llvm=${{env.LLVM_VERSION}}, nos.buildenv.gcc=${{env.GCC_VERSION}}, nos.buildenv.github.sha=${{ github.sha }}"

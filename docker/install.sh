@@ -28,25 +28,22 @@ if [ -z "$GCC" ]; then
   exit 1
 fi
 
+echo "Updating PATH for pipx installed tools"
+export PATH="/root/.local/bin:$PATH"
+echo "PATH=$PATH"
+
 echo "Installing packages from standard repositories"
 apt-get update -qq && export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y --no-install-recommends \
-        software-properties-common apt-utils \
-        wget curl file gpg \
-        build-essential ccache \
-        git \
-        python3 python3-pip \
-        xorriso \
-        gcc-"$GCC" g++-"$GCC" \
-        qemu-system-x86 qemu-system-arm
+    apt-get install -y --no-install-recommends software-properties-common apt-utils wget curl file gpg \
+        build-essential ccache pkg-config git python3 python3-pip pipx xorriso qemu-system-x86 qemu-system-arm \
+        gcc-"$GCC" g++-"$GCC"
 
 echo "Installing packages from pip"
-pip3 install cmake
-pip3 install meson
-pip3 install ninja
-pip3 install gcovr
-pip3 install config-pkg
-pip3 install xbstrap
+pipx install cmake
+pipx install meson
+pipx install ninja
+pipx install gcovr
+pipx install xbstrap
 
 echo "Installing Taskfile"
 sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
@@ -55,3 +52,17 @@ echo "Installing LLVM"
 wget https://apt.llvm.org/llvm.sh
 chmod +x llvm.sh
 ./llvm.sh "$LLVM" all
+
+# Clean up
+rm llvm.sh
+
+echo "Verify installations"
+#cmake --version
+#meson --version
+#ninja --version
+#gcovr --version
+#xbstrap --version
+#gcc-"$GCC" --version
+#g++-"$GCC" --version
+#clang-"$LLVM" --version
+#clang++-"$LLVM" --version

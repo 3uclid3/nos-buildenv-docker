@@ -24,16 +24,15 @@ fi
 echo "Installing packages from standard repositories"
 apt-get update -qq && export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y --no-install-recommends software-properties-common apt-utils wget curl file gpg \
-        build-essential ccache git python3 python3-pip pipx xorriso qemu-system-x86 qemu-system-arm
+        build-essential ccache git python3 python3-pip xorriso qemu-system-x86 qemu-system-arm
 
 echo "Installing packages from pip"
-pipx install cmake
-pipx install meson
-pipx install ninja
-pipx install gcovr
-pipx install config-pkg
-pipx install xbstrap
-pipx ensurepath
+pip3 install cmake
+pip3 install meson
+pip3 install ninja
+pip3 install gcovr
+pip3 install config-pkg
+pip3 install xbstrap
 
 echo "Installing Taskfile"
 sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
